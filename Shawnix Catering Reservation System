@@ -1,0 +1,377 @@
+
+package com.mycompany.shawnixlogin1;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class AdminDashboard extends JFrame {
+
+  private final Color BLACK = Color.WHITE;
+private final Color DARK = new Color(245, 245, 245);
+private final Color GREEN = Color.BLACK;
+private final Color WHITE = Color.BLACK;
+private final Color GRAY = Color.BLACK;
+
+    public AdminDashboard() {
+
+        setTitle("SHAWNIX - ADMIN DASHBOARD");
+        setSize(1200, 700);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.setBackground(BLACK);
+
+        // =========================
+        // SIDEBAR
+        // =========================
+
+        JPanel sidebar = new JPanel();
+        sidebar.setPreferredSize(new Dimension(230, 700));
+        sidebar.setBackground(DARK);
+        sidebar.setLayout(new BoxLayout(sidebar, BoxLayout.Y_AXIS));
+
+        JLabel logo = new JLabel("SHAWNIX");
+        logo.setForeground(GREEN);
+        logo.setFont(new Font("Arial", Font.BOLD, 30));
+        logo.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        sidebar.add(Box.createVerticalStrut(30));
+        sidebar.add(logo);
+        sidebar.add(Box.createVerticalStrut(40));
+
+        JButton dashboardButton = createSidebarButton("DASHBOARD");
+        JButton customersButton = createSidebarButton("CUSTOMERS");
+        JButton reservationsButton = createSidebarButton("RESERVATIONS");
+        JButton packagesButton = createSidebarButton("PACKAGES");
+        JButton paymentsButton = createSidebarButton("PAYMENTS");
+        JButton reportsButton = createSidebarButton("REPORTS");
+        JButton logoutButton = createSidebarButton("LOGOUT");
+
+        sidebar.add(dashboardButton);
+        sidebar.add(customersButton);
+        sidebar.add(reservationsButton);
+        sidebar.add(packagesButton);
+        sidebar.add(paymentsButton);
+        sidebar.add(reportsButton);
+
+        sidebar.add(Box.createVerticalGlue());
+        sidebar.add(logoutButton);
+        sidebar.add(Box.createVerticalStrut(20));
+
+        // =========================
+        // DASHBOARD CONTENT
+        // =========================
+
+        JPanel contentPanel = new JPanel(new BorderLayout());
+        contentPanel.setBackground(BLACK);
+        contentPanel.setBorder(
+                BorderFactory.createEmptyBorder(30, 30, 30, 30)
+        );
+
+        JLabel title = new JLabel("ADMIN DASHBOARD");
+        title.setForeground(GREEN);
+        title.setFont(new Font("Arial", Font.BOLD, 30));
+
+        JLabel subtitle = new JLabel(
+                "SHAWNIX Catering Reservation System"
+        );
+        subtitle.setForeground(GRAY);
+        subtitle.setFont(new Font("Arial", Font.PLAIN, 14));
+
+        JPanel header = new JPanel();
+        header.setBackground(BLACK);
+        header.setLayout(
+                new BoxLayout(header, BoxLayout.Y_AXIS)
+        );
+
+        header.add(title);
+        header.add(Box.createVerticalStrut(5));
+        header.add(subtitle);
+
+        contentPanel.add(header, BorderLayout.NORTH);
+
+        // =========================
+        // DASHBOARD CARDS
+        // =========================
+
+        JPanel cardsPanel = new JPanel(
+                new GridLayout(2, 3, 20, 20)
+        );
+
+        cardsPanel.setBackground(BLACK);
+        cardsPanel.setBorder(
+                BorderFactory.createEmptyBorder(40, 0, 0, 0)
+        );
+
+        JPanel customerCard = createCard(
+                "CUSTOMERS",
+                "Manage customer information"
+        );
+
+        JPanel reservationCard = createCard(
+                "RESERVATIONS",
+                "Manage catering reservations"
+        );
+
+        JPanel packageCard = createCard(
+                "PACKAGES",
+                "Manage catering packages"
+        );
+
+        JPanel paymentCard = createCard(
+                "PAYMENTS",
+                "Manage Cash and GCash payments"
+        );
+
+        JPanel reportsCard = createCard(
+                "REPORTS",
+                "View customers, bookings, sales, delivery and orders"
+        );
+
+        JPanel systemCard = createCard(
+                "SYSTEM",
+                "SHAWNIX system information"
+        );
+
+        cardsPanel.add(customerCard);
+        cardsPanel.add(reservationCard);
+        cardsPanel.add(packageCard);
+        cardsPanel.add(paymentCard);
+        cardsPanel.add(reportsCard);
+        cardsPanel.add(systemCard);
+
+        contentPanel.add(cardsPanel, BorderLayout.CENTER);
+
+        // =========================
+        // FOOTER
+        // =========================
+
+        JLabel footer = new JLabel(
+                "Food Brings People Together"
+        );
+
+        footer.setForeground(GRAY);
+        footer.setHorizontalAlignment(SwingConstants.CENTER);
+
+        contentPanel.add(footer, BorderLayout.SOUTH);
+
+        // =========================
+        // DASHBOARD BUTTON
+        // =========================
+
+        dashboardButton.addActionListener(e -> {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "You are already on the Dashboard.",
+                    "SHAWNIX",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+        });
+
+        // =========================
+        // CUSTOMERS
+        // =========================
+
+        customersButton.addActionListener(e -> {
+            new CustomerManagement().setVisible(true);
+        });
+
+        makeCardClickable(customerCard, () -> {
+            new CustomerManagement().setVisible(true);
+        });
+
+        // =========================
+        // RESERVATIONS
+        // =========================
+
+        reservationsButton.addActionListener(e -> {
+            new ReservationManagement().setVisible(true);
+        });
+
+        makeCardClickable(reservationCard, () -> {
+            new ReservationManagement().setVisible(true);
+        });
+
+        // =========================
+        // PACKAGES
+        // =========================
+
+        packagesButton.addActionListener(e -> {
+            new PackageManagement().setVisible(true);
+        });
+
+        makeCardClickable(packageCard, () -> {
+            new PackageManagement().setVisible(true);
+        });
+
+        // =========================
+        // PAYMENTS
+        // =========================
+
+        paymentsButton.addActionListener(e -> {
+            new PaymentManagement().setVisible(true);
+        });
+
+        makeCardClickable(paymentCard, () -> {
+            new PaymentManagement().setVisible(true);
+        });
+
+        // =========================
+        // REPORTS
+        // =========================
+
+        reportsButton.addActionListener(e -> {
+            new ReportsManagement().setVisible(true);
+        });
+
+        makeCardClickable(reportsCard, () -> {
+            new ReportsManagement().setVisible(true);
+        });
+
+        // =========================
+        // SYSTEM CARD
+        // =========================
+
+        makeCardClickable(systemCard, () -> {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "SHAWNIX Catering Reservation System",
+                    "System Information",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+        });
+
+        // =========================
+        // LOGOUT
+        // =========================
+
+        logoutButton.addActionListener(e -> {
+
+            int choice = JOptionPane.showConfirmDialog(
+                    this,
+                    "Are you sure you want to logout?",
+                    "Logout",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (choice == JOptionPane.YES_OPTION) {
+                dispose();
+                new ShawnixLogin1().setVisible(true);
+            }
+        });
+
+        // =========================
+        // ADD PANELS
+        // =========================
+
+        mainPanel.add(sidebar, BorderLayout.WEST);
+        mainPanel.add(contentPanel, BorderLayout.CENTER);
+
+        add(mainPanel);
+    }
+
+    // =====================================================
+    // SIDEBAR BUTTON
+    // =====================================================
+
+    private JButton createSidebarButton(String text) {
+
+        JButton button = new JButton(text);
+
+        button.setMaximumSize(new Dimension(200, 45));
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        button.setBackground(DARK);
+        button.setForeground(WHITE);
+
+        button.setFont(
+                new Font("Arial", Font.BOLD, 13)
+        );
+
+        button.setFocusPainted(false);
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        button.setBorder(
+                BorderFactory.createEmptyBorder(10, 20, 10, 20)
+        );
+
+        return button;
+    }
+
+    // =====================================================
+    // DASHBOARD CARD
+    // =====================================================
+
+    private JPanel createCard(String title, String description) {
+
+        JPanel card = new JPanel();
+
+        card.setBackground(DARK);
+        card.setBorder(
+                BorderFactory.createLineBorder(
+                        new Color(50, 50, 50)
+                )
+        );
+
+        card.setLayout(
+                new BoxLayout(card, BoxLayout.Y_AXIS)
+        );
+
+        JLabel titleLabel = new JLabel(title);
+        titleLabel.setForeground(GREEN);
+        titleLabel.setFont(
+                new Font("Arial", Font.BOLD, 20)
+        );
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel descriptionLabel = new JLabel(
+                "<html><div style='text-align:center;'>"
+                        + description
+                        + "</div></html>"
+        );
+
+        descriptionLabel.setForeground(GRAY);
+        descriptionLabel.setFont(
+                new Font("Arial", Font.PLAIN, 13)
+        );
+        descriptionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        card.add(Box.createVerticalGlue());
+        card.add(titleLabel);
+        card.add(Box.createVerticalStrut(10));
+        card.add(descriptionLabel);
+        card.add(Box.createVerticalGlue());
+
+        card.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        return card;
+    }
+
+    // =====================================================
+    // MAKE DASHBOARD CARDS CLICKABLE
+    // =====================================================
+
+    private void makeCardClickable(JPanel card, Runnable action) {
+
+        card.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        card.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                action.run();
+            }
+        });
+    }
+
+    // =====================================================
+    // MAIN
+    // =====================================================
+
+    public static void main(String[] args) {
+
+        SwingUtilities.invokeLater(() -> {
+            new AdminDashboard().setVisible(true);
+        });
+    }
+}
